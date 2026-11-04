@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Inscrição Hackathon IFPB{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="cabecalho">
+        <h1>Hackathon IFPB</h1>
+        <p>Inscrição de participantes</p>
+    </header>
+
+    <main class="container">
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>Atividade prática — Formulários com Flask</p>
+    </footer>
+</body>
+</html>

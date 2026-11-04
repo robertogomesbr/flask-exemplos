@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inscrição confirmada | Hackathon IFPB{% endblock %}
+
+{% block conteudo %}
+<div class="sucesso">
+    <h2>Inscrição realizada com sucesso!</h2>
+    <p>Confira os dados informados:</p>
+</div>
+
+<div class="cracha" style="border-color: {{ dados.cor_cracha }}; background-color: {{ dados.cor_cracha }}22;">
+    <span class="identificacao">HACKATHON IFPB · {{ dados.evento_id }}</span>
+    <h2>{{ dados.nome }}</h2>
+    <p>{{ dados.curso }} — {{ dados.periodo }}º período</p>
+    {% if dados.nome_foto %}
+        <img class="foto-participante" src="{{ url_for('static', filename='uploads/' + dados.nome_foto) }}" alt="Foto de {{ dados.nome }}">
+    {% endif %}
+</div>
+
+<section class="resultado">
+    <h3>Dados pessoais</h3>
+    <dl>
+        <dt>Email</dt><dd>{{ dados.email }}</dd>
+        <dt>Data de nascimento</dt><dd>{{ dados.data_nascimento.strftime('%d/%m/%Y') if dados.data_nascimento else 'Não informado' }}</dd>
+        <dt>Idade</dt><dd>{{ dados.idade }} anos</dd>
+        <dt>Telefone</dt><dd>{{ dados.telefone or 'Não informado' }}</dd>
+        <dt>Gênero</dt><dd>{{ dados.genero or 'Não informado' }}</dd>
+    </dl>
+</section>
+
+<section class="resultado">
+    <h3>Dados acadêmicos e experiência</h3>
+    <dl>
+        <dt>Curso</dt><dd>{{ dados.curso or 'Não informado' }}</dd>
+        <dt>Período</dt><dd>{{ dados.periodo }}</dd>
+        <dt>GitHub</dt><dd>{% if dados.github %}<a href="{{ dados.github }}" target="_blank" rel="noopener noreferrer">{{ dados.github }}</a>{% else %}Não informado{% endif %}</dd>
+    </dl>
+    <h4>Linguagens</h4>
+    <ul>
+        {% for linguagem in dados.linguagens %}<li>{{ linguagem }}</li>{% endfor %}
+    </ul>
+    <h4>Áreas de interesse</h4>
+    <ul>
+        {% for area in dados.areas %}
+            <li>{{ area }}</li>
+        {% else %}
+            <li>Nenhuma área selecionada.</li>
+        {% endfor %}
+    </ul>
+    <p>Experiência: {{ dados.experiencia }}/10</p>
+    <progress value="{{ dados.experiencia }}" max="10"></progress>
+</section>
+
+<section class="resultado">
+    <h3>Preferências para o evento</h3>
+    <dl>
+        <dt>Tamanho da camiseta</dt><dd>{{ dados.camiseta or 'Não informado' }}</dd>
+        <dt>Cor do crachá</dt><dd>{{ dados.cor_cracha }}</dd>
+        <dt>Horário de chegada</dt><dd>{{ dados.horario_chegada or 'Não informado' }}</dd>
+        <dt>Restrição alimentar</dt><dd>{{ dados.restricao or 'Não informado' }}</dd>
+        <dt>Foto enviada</dt><dd>{{ dados.nome_foto or 'Não enviada' }}</dd>
+        <dt>Motivação</dt><dd>{{ dados.motivacao or 'Não informada' }}</dd>
+        <dt>Aceitou o regulamento</dt><dd>{% if dados.aceite_regulamento %}Sim{% else %}Não{% endif %}</dd>
+        <dt>Receber novidades</dt><dd>{% if dados.receber_novidades %}Sim{% else %}Não{% endif %}</dd>
+    </dl>
+</section>
+
+<a class="botao-voltar" href="{{ url_for('inscricao') }}">Fazer nova inscrição</a>
+<a class="botao-voltar" href="{{ url_for('listar_inscritos') }}">Ver inscritos</a>
+{% endblock %}

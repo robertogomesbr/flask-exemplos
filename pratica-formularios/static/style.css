@@ -1,0 +1,275 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f4f6;
+    color: #1f2937;
+    line-height: 1.5;
+}
+
+.cabecalho {
+    background: #1e3a8a;
+    color: white;
+    text-align: center;
+    padding: 24px 16px;
+}
+
+.cabecalho h1 {
+    margin: 0;
+}
+
+.cabecalho p {
+    margin: 4px 0 0;
+}
+
+.container {
+    width: 92%;
+    max-width: 820px;
+    margin: 30px auto;
+    background: white;
+    padding: 28px;
+    border-radius: 12px;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.introducao {
+    color: #6b7280;
+}
+
+fieldset {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 22px 0;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 8px;
+    color: #1e3a8a;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 17px;
+}
+
+.campo:last-child {
+    margin-bottom: 0;
+}
+
+label, .rotulo {
+    font-weight: 600;
+}
+
+input:not([type="radio"]):not([type="checkbox"]):not([type="color"]):not([type="range"]),
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font: inherit;
+    background: white;
+}
+
+input[type="color"] {
+    width: 70px;
+    height: 42px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: 2px solid #93c5fd;
+    border-color: #2563eb;
+}
+
+input:invalid:focus {
+    border-color: #dc2626;
+}
+
+.opcao {
+    display: block;
+    margin: 6px 0;
+    font-weight: normal;
+}
+
+.opcao input {
+    margin-right: 7px;
+}
+
+small {
+    color: #6b7280;
+}
+
+.botoes {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+button, .botao-voltar {
+    display: inline-block;
+    border: 0;
+    border-radius: 6px;
+    padding: 11px 18px;
+    background: #1d4ed8;
+    color: white;
+    font: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+button:hover, .botao-voltar:hover {
+    background: #1e40af;
+}
+
+button.secundario {
+    background: #64748b;
+}
+
+.caixa-erros {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 18px 0;
+}
+
+.caixa-erros ul {
+    margin-bottom: 0;
+}
+
+.sucesso {
+    color: #166534;
+}
+
+.cracha {
+    border: 3px solid;
+    border-radius: 10px;
+    padding: 22px;
+    margin: 22px 0;
+}
+
+.cracha h2 {
+    margin: 8px 0;
+}
+
+.identificacao {
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.resultado {
+    border-top: 1px solid #e5e7eb;
+    padding: 16px 0;
+}
+
+.resultado h3 {
+    color: #1e3a8a;
+}
+
+dl {
+    display: grid;
+    grid-template-columns: minmax(150px, 1fr) 2fr;
+    gap: 9px 16px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+progress {
+    width: 100%;
+    height: 18px;
+}
+
+footer {
+    text-align: center;
+    color: #6b7280;
+    padding: 10px 16px 25px;
+}
+
+@media (max-width: 560px) {
+    .container {
+        padding: 18px;
+    }
+
+    dl {
+        grid-template-columns: 1fr;
+        gap: 3px;
+    }
+
+    dd {
+        margin-bottom: 10px;
+    }
+}
+
+/* Extras */ 
+
+.foto-participante {
+    display: block;
+    width: 110px;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-top: 14px;
+    border: 3px solid white;
+}
+
+.filtro {
+    display: flex;
+    align-items: end;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.filtro .campo {
+    min-width: 220px;
+    margin: 0;
+}
+
+.filtro a {
+    padding: 10px 0;
+}
+
+.tabela-responsiva {
+    width: 100%;
+    overflow-x: auto;
+    margin: 18px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 11px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background: #eff6ff;
+    color: #1e3a8a;
+}

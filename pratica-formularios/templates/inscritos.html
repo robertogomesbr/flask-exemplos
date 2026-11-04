@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inscritos | Hackathon IFPB{% endblock %}
+
+{% block conteudo %}
+<h2>Participantes inscritos</h2>
+
+<form action="{{ url_for('listar_inscritos') }}" method="GET" class="filtro">
+    <div class="campo">
+        <label for="curso">Filtrar por curso</label>
+        <select name="curso" id="curso">
+            <option value="">Todos os cursos</option>
+            {% for nome_curso in ['TSI', 'Engenharia de Computação', 'Redes', 'Outro'] %}
+                <option value="{{ nome_curso }}" {% if curso == nome_curso %}selected{% endif %}>{{ nome_curso }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit">Buscar</button>
+    <a href="{{ url_for('listar_inscritos') }}">Limpar filtro</a>
+</form>
+
+{% if inscritos %}
+    <p>Total exibido: {{ inscritos|length }}</p>
+    <div class="tabela-responsiva">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Curso</th>
+                    <th>Período</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inscrito in inscritos %}
+                    <tr>
+                        <td>{{ inscrito.nome }}</td>
+                        <td>{{ inscrito.email }}</td>
+                        <td>{{ inscrito.curso or 'Não informado' }}</td>
+                        <td>{{ inscrito.periodo or 'Não informado' }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    <p>Nenhuma inscrição encontrada.</p>
+{% endif %}
+
+<a class="botao-voltar" href="{{ url_for('inscricao') }}">Voltar para inscrição</a>
+{% endblock %}

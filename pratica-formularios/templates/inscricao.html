@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Inscrição | Hackathon IFPB{% endblock %}
+
+{% block conteudo %}
+<h2>Formulário de inscrição</h2>
+<p class="introducao">Preencha os campos abaixo para participar do Hackathon IFPB.</p>
+
+{% if erros %}
+    <div class="caixa-erros">
+        <strong>Não foi possível realizar a inscrição:</strong>
+        <ul>
+            {% for erro in erros %}
+                <li>{{ erro }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+<form action="{{ url_for('inscricao') }}" method="POST" enctype="multipart/form-data">
+    <fieldset>
+        <legend>Dados pessoais</legend>
+
+        <div class="campo">
+            <label for="nome">Nome completo</label>
+            <input type="text" id="nome" name="nome" minlength="3" required value="{{ form.get('nome', '') }}">
+        </div>
+
+        <div class="campo">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required value="{{ form.get('email', '') }}">
+        </div>
+
+        <div class="campo">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" minlength="6" required>
+        </div>
+
+        <div class="campo">
+            <label for="confirma_senha">Confirmar senha</label>
+            <input type="password" id="confirma_senha" name="confirma_senha" required>
+        </div>
+
+        <div class="campo">
+            <label for="nascimento">Data de nascimento</label>
+            <input type="date" id="nascimento" name="nascimento" required value="{{ form.get('nascimento', '') }}">
+        </div>
+
+        <div class="campo">
+            <label for="telefone">Telefone</label>
+            <input type="tel" id="telefone" name="telefone" placeholder="(83) 90000-0000" value="{{ form.get('telefone', '') }}">
+        </div>
+
+        <div class="campo">
+            <span class="rotulo">Gênero</span>
+            <label class="opcao"><input type="radio" name="genero" value="Feminino" {% if form.get('genero', 'Feminino') == 'Feminino' %}checked{% endif %}> Feminino</label>
+            <label class="opcao"><input type="radio" name="genero" value="Masculino" {% if form.get('genero') == 'Masculino' %}checked{% endif %}> Masculino</label>
+            <label class="opcao"><input type="radio" name="genero" value="Prefiro não informar" {% if form.get('genero') == 'Prefiro não informar' %}checked{% endif %}> Prefiro não informar</label>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Dados acadêmicos e experiência</legend>
+
+        <div class="campo">
+            <label for="curso">Curso</label>
+            <select id="curso" name="curso">
+                <option value="">Selecione</option>
+                <option value="TSI" {% if form.get('curso') == 'TSI' %}selected{% endif %}>TSI</option>
+                <option value="Engenharia de Computação" {% if form.get('curso') == 'Engenharia de Computação' %}selected{% endif %}>Engenharia de Computação</option>
+                <option value="Redes" {% if form.get('curso') == 'Redes' %}selected{% endif %}>Redes</option>
+                <option value="Outro" {% if form.get('curso') == 'Outro' %}selected{% endif %}>Outro</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="periodo">Período (1 a 10)</label>
+            <input type="number" id="periodo" name="periodo" min="1" max="10" value="{{ form.get('periodo', '') }}">
+        </div>
+
+        <div class="campo">
+            <label for="experiencia">Nível de experiência (0 a 10)</label>
+            <input type="range" id="experiencia" name="experiencia" min="0" max="10" step="1" value="{{ form.get('experiencia', '0') }}">
+        </div>
+
+        <div class="campo">
+            <span class="rotulo">Linguagens que conhece</span>
+            {% for linguagem in ['Python', 'JavaScript', 'Java', 'C', 'PHP', 'Go'] %}
+                <label class="opcao"><input type="checkbox" name="linguagens" value="{{ linguagem }}" {% if linguagem in form.getlist('linguagens') %}checked{% endif %}> {{ linguagem }}</label>
+            {% endfor %}
+        </div>
+
+        <div class="campo">
+            <label for="areas">Áreas de interesse</label>
+            <select id="areas" name="areas" multiple size="6">
+                {% for area in ['Web', 'Mobile', 'IA', 'Jogos', 'Segurança', 'Dados'] %}
+                    <option value="{{ area }}" {% if area in form.getlist('areas') %}selected{% endif %}>{{ area }}</option>
+                {% endfor %}
+            </select>
+            <small>Segure Ctrl (ou Cmd) para selecionar mais de uma opção.</small>
+        </div>
+
+        <div class="campo">
+            <label for="github">GitHub (opcional)</label>
+            <input type="url" id="github" name="github" value="{{ form.get('github', '') }}">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Preferências para o evento</legend>
+
+        <div class="campo">
+            <span class="rotulo">Tamanho da camiseta</span>
+            {% for tamanho in ['P', 'M', 'G', 'GG'] %}
+                <label class="opcao"><input type="radio" name="camiseta" value="{{ tamanho }}" {% if form.get('camiseta') == tamanho %}checked{% endif %}> {{ tamanho }}</label>
+            {% endfor %}
+        </div>
+
+        <div class="campo">
+            <label for="cor_cracha">Cor do crachá</label>
+            <input type="color" id="cor_cracha" name="cor_cracha" value="{{ form.get('cor_cracha', '#3b82f6') }}">
+        </div>
+
+        <div class="campo">
+            <label for="chegada">Horário previsto de chegada</label>
+            <input type="time" id="chegada" name="chegada" value="{{ form.get('chegada', '') }}">
+        </div>
+
+        <div class="campo">
+            <label for="restricao">Restrição alimentar (se houver)</label>
+            <input type="text" id="restricao" name="restricao" list="restricoes" value="{{ form.get('restricao', '') }}">
+            <datalist id="restricoes">
+                <option value="Nenhuma">
+                <option value="Vegetariana">
+                <option value="Vegana">
+                <option value="Sem lactose">
+                <option value="Sem glúten">
+            </datalist>
+        </div>
+
+        <div class="campo">
+            <label for="foto">Foto para identificação (opcional)</label>
+            <input type="file" id="foto" name="foto" accept="image/*">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Sobre você</legend>
+
+        <div class="campo">
+            <label for="motivacao">Por que deseja participar?</label>
+            <textarea id="motivacao" name="motivacao" rows="5" maxlength="500">{{ form.get('motivacao', '') }}</textarea>
+            <small>Máximo de 500 caracteres.</small>
+        </div>
+
+        <label class="opcao">
+            <input type="checkbox" name="aceite" {% if form.get('aceite') %}checked{% endif %} required>
+            Aceito o regulamento do evento
+        </label>
+
+        <label class="opcao">
+            <input type="checkbox" name="newsletter" value="sim" {% if form.get('newsletter') == 'sim' %}checked{% endif %}>
+            Desejo receber novidades sobre futuros eventos
+        </label>
+
+        <input type="hidden" name="evento_id" value="HACK-2026">
+    </fieldset>
+
+    <div class="botoes">
+        <button type="submit">Enviar inscrição</button>
+        <button type="reset" class="secundario">Limpar formulário</button>
+    </div>
+</form>
+{% endblock %}
